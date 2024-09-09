@@ -71,7 +71,7 @@ def add_password(fernet, master_password, passwords):
     encrypted_password = encrypt(password, fernet)
     data = {"account_name" : account_name, "username" :username, "encrypted_password" :encrypted_password.decode()}
     for existing_password in passwords:
-        if existing_password["account_name"] == account_name:
+        if existing_password['account_name'] == account_name:
             print("Account name already exists. please choose a different name.")
             return
         
@@ -82,7 +82,7 @@ def add_password(fernet, master_password, passwords):
 def view_password(fernet, master_password, passwords):
     for password in passwords:
         print(f"Account Name: {password["account_name"]}")
-        print(f"Username: {password["username"]}")
+        print(f"Username: {password['username']}")
         print(" ")
 
 # reveal password
@@ -90,7 +90,7 @@ def reveal_password(fernet, master_password, passwords):
     account_name = input("Enter account name: ")
     for password in passwords:
         if password["account_name"] == account_name:
-            print(f"Password: {decrypt(save_passwords["encrypted_password"].encode(), fernet)}")
+            print(f"Password: {decrypt(save_passwords['encrypted_password'].encode(), fernet)}")
             return
     print("Account not found")
 
@@ -98,7 +98,7 @@ def reveal_password(fernet, master_password, passwords):
 def delete_password(fernet, master_password, passwords):
     account_name = input("Enter account name: ")
     for i, password in enumerate(passwords):
-        if password["account_name"] != account_name:
+        if password["account_name"] == account_name:
             del passwords[i]
             save_passwords(passwords)
             print("Password deleted")
